@@ -5,6 +5,7 @@ import com.proyectos.GestorDeLibros_BookNest.Model.ClaseLibros;
 import com.proyectos.GestorDeLibros_BookNest.Model.mainDatos;
 import com.proyectos.GestorDeLibros_BookNest.Services.ConverDatos;
 import com.proyectos.GestorDeLibros_BookNest.Services.GestionAPI;
+import com.proyectos.GestorDeLibros_BookNest.UserLibrary.GuardadoLibro;
 import com.proyectos.GestorDeLibros_BookNest.UserLibrary.SeleccionLibro;
 import com.proyectos.GestorDeLibros_BookNest.repository.ClaseAutoresRepository;
 import com.proyectos.GestorDeLibros_BookNest.repository.ClaseLibrosRepository;
@@ -21,6 +22,8 @@ public class mainClass {
     private final GestionAPI API = new GestionAPI();
     private final ConverDatos convertdatos = new ConverDatos();
     private final SeleccionLibro selectBook = new SeleccionLibro();
+    private final GuardadoLibro saveBook = new GuardadoLibro();
+
     private ClaseLibrosRepository repositorio_Libros;
     private ClaseAutoresRepository repositorio_Autores;
 
@@ -50,7 +53,6 @@ public class mainClass {
                 case 1:
                     System.out.println("Ingrese el nombre del libro a buscar:");
                     String libroBuscar = scanner.nextLine();
-                    //String libroBuscar = "quijote";
                     libroBuscar = libroBuscar.toUpperCase();
                     searchBook(libroBuscar);
                     break;
@@ -72,14 +74,8 @@ public class mainClass {
         if(seleccion_Libro != -1){
             System.out.println(seleccion_Libro);
             System.out.println(datosBusqueda.listaResultados().get(seleccion_Libro).DatosAutor().get(0));
-
             ClaseAutores autor = new ClaseAutores(datosBusqueda.listaResultados().get(seleccion_Libro).DatosAutor().get(0));
-            ClaseLibros libro = new ClaseLibros(datosBusqueda.listaResultados().get(seleccion_Libro),autor);
-
-            System.out.println(autor);
-            //repositorio_Autores.save(autor);
-            repositorio_Libros.save(libro);
-            System.out.println(libro.getAutor().getNombreAutor());
+            saveBook.registrarLibro(datosBusqueda.listaResultados().get(seleccion_Libro),autor,repositorio_Libros, repositorio_Autores);
         }else{
             System.out.println("==== LIBRO NO ENCONTRADO ====");
         }

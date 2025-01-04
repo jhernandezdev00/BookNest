@@ -14,6 +14,7 @@ public class GestorDeLibrosBookNestApplication implements CommandLineRunner {
 
 	@Autowired
 	private ClaseLibrosRepository repository_libros;
+	@Autowired
 	private ClaseAutoresRepository repository_autores;
 
 	public static void main(String[] args) {

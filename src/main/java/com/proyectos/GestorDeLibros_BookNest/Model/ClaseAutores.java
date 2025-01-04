@@ -10,15 +10,16 @@ public class ClaseAutores {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     //@Column(unique = true)
     private String nombreAutor;
-
     private int yearNacimiento;
     private int yearFallecimiento;
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ClaseLibros> libros;
 
-    //@OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //private List<ClaseLibros> libros;
+    public ClaseAutores(){
+
+    }
 
     public ClaseAutores(DatosAutor autor){
         this.nombreAutor = autor.nombreAutor();

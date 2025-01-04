@@ -12,7 +12,7 @@ public class ClaseLibros {
     @Column(unique = true)
     private String tituloLibro;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_autor")
     private ClaseAutores autor;
 
