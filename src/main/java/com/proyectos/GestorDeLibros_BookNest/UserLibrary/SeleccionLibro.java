@@ -19,7 +19,7 @@ public class SeleccionLibro {
                 seleccionLibro = 0;
             } else {
                 for (int i = 0; i < sizeList; i++) {
-                    System.out.println(i + ". " + datosBusqueda.listaResultados().get(i).titulo());
+                    System.out.println(i + ". " + datosBusqueda.listaResultados().get(i).titulo() + " = " + (datosBusqueda.listaResultados().get(i).DatosAutor().isEmpty()?"Desconocido" : datosBusqueda.listaResultados().get(i).DatosAutor().get(0).nombreAutor()));
                 }
                 do {
                     System.out.println("Digite el libro de su seleccion:");

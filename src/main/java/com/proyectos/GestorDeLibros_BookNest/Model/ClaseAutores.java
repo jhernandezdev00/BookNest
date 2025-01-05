@@ -18,7 +18,9 @@ public class ClaseAutores {
     private List<ClaseLibros> libros;
 
     public ClaseAutores(){
-
+        this.nombreAutor = "Desconocido";
+        this.yearNacimiento = 0;
+        this.yearFallecimiento = 0;
     }
 
     public ClaseAutores(DatosAutor autor){
@@ -26,6 +28,7 @@ public class ClaseAutores {
         this.yearNacimiento = autor.yearNacimiento();
         this.yearFallecimiento = autor.yearFallecimiento();
     }
+
 
     public String getNombreAutor() {
         return nombreAutor;
@@ -50,4 +53,5 @@ public class ClaseAutores {
     public void setYearNacimiento(int yearNacimiento) {
         this.yearNacimiento = yearNacimiento;
     }
+
 }

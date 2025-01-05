@@ -2,6 +2,8 @@ package com.proyectos.GestorDeLibros_BookNest.Model;
 
 import jakarta.persistence.*;
 
+import java.util.Arrays;
+
 @Entity
 @Table(name = "Libros")
 public class ClaseLibros {
