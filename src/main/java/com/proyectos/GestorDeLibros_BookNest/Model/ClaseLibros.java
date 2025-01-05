@@ -91,4 +91,15 @@ public class ClaseLibros {
     public void setAutor(ClaseAutores autor) {
         this.autor = autor;
     }
+
+    @Override
+    public String toString() {
+        return "=====================\n" +
+                "Titulo del Libro    => "+ tituloLibro +"\n"+
+                "Autor del Libro     => "+ autor.getNombreAutor() +"\n"+
+                "Genero del Libro    => "+ Arrays.toString(generosLibro) +"\n"+
+                "Idiomas Disponible  => "+ Arrays.toString(idiomaDisponible) +"\n"+
+                "Numero de Descargas => "+ numeroDeDescargas +"\n"+
+                "Derechos de Autor   => "+ derechoAutor +"\n";
+    }
 }

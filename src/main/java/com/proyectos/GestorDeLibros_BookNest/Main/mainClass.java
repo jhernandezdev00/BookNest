@@ -1,7 +1,6 @@
 package com.proyectos.GestorDeLibros_BookNest.Main;
 
 import com.proyectos.GestorDeLibros_BookNest.Model.ClaseAutores;
-import com.proyectos.GestorDeLibros_BookNest.Model.ClaseLibros;
 import com.proyectos.GestorDeLibros_BookNest.Model.mainDatos;
 import com.proyectos.GestorDeLibros_BookNest.Model.mapeoResultados;
 import com.proyectos.GestorDeLibros_BookNest.Services.ConverDatos;
@@ -10,10 +9,9 @@ import com.proyectos.GestorDeLibros_BookNest.UserLibrary.GuardadoLibro;
 import com.proyectos.GestorDeLibros_BookNest.UserLibrary.SeleccionLibro;
 import com.proyectos.GestorDeLibros_BookNest.repository.ClaseAutoresRepository;
 import com.proyectos.GestorDeLibros_BookNest.repository.ClaseLibrosRepository;
-import org.springframework.data.jpa.repository.Query;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class mainClass {
@@ -28,6 +26,8 @@ public class mainClass {
     private final SeleccionLibro selectBook = new SeleccionLibro();
     private final GuardadoLibro saveBook = new GuardadoLibro();
     private final mapeoResultados mapResult = new mapeoResultados();
+    private final mapeoResultados.idiomasLibros idiomas = new mapeoResultados.idiomasLibros();
+    private Map<String, String> listIdiomas;
 
     private ClaseLibrosRepository repositorio_Libros;
     private ClaseAutoresRepository repositorio_Autores;
@@ -38,6 +38,8 @@ public class mainClass {
     }
 
     public void getMenu(){
+        listIdiomas =  idiomas.listarIdiomas();
+
         do{
             System.out.println("\n======== MENÚ PRINCIPAL ========");
             System.out.println("DIGITE UN NUMERO PARA ESCOGER UNA OPCION");
@@ -45,9 +47,7 @@ public class mainClass {
             System.out.println("2. LISTAR LIBROS REGISTRADOS");
             System.out.println("3. LISTAR AUTORES REGISTRADOS");
             System.out.println("4. LISTAR AUTORES VIVOS POR DETERMINADO RANGO DE AÑO");
-            System.out.println("X. LISTAR LIBROS POR IDIOMA");
-            System.out.println("X. MOSTRAR INFORMACION DE UN LIBRO REGISTRADOS");
-            System.out.println("X. MOSTRAR LIBROS POR GENERO");
+            System.out.println("5. LISTAR LIBROS POR IDIOMA");
             System.out.println("0. SALIR");
             System.out.print("Selecciona una opción: ");
             opcion = scannerint.nextInt();
@@ -71,6 +71,9 @@ public class mainClass {
                     break;
                 case 4:
                     listAuthorsPerYear();
+                    break;
+                case 5:
+                    searchBookPerLanguages();
                     break;
                 default:
                     System.out.println("Opción no válida. Inténtalo de nuevo.");
@@ -133,6 +136,22 @@ public class mainClass {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void searchBookPerLanguages() {
+        for (Map.Entry<String, String> entry : listIdiomas.entrySet()) {
+            System.out.println("Código: " + entry.getKey() + " - Idioma: " + entry.getValue());
+        }
+
+        System.out.println("Ingrese el codigo del idioma a buscar: ");
+        String codigoIdioma = scanner.nextLine().trim().toLowerCase();
+
+        if (listIdiomas.containsKey(codigoIdioma)) {
+            List<Object[]> resultadosLibros = repositorio_Libros.listarlibrosPerlanguages(codigoIdioma);
+            mapResult.mapeoResultadosBooks(resultadosLibros);
+        } else {
+            System.out.println("El código de idioma ingresado no es válido. Por favor ingrese un código correcto.");
+        }
     }
 
 }

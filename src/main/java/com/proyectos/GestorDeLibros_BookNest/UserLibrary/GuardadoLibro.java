@@ -27,6 +27,7 @@ public class GuardadoLibro {
                 }
                 ClaseLibros libro = new ClaseLibros(datos,autor);
                 repository_libros.save(libro);
+                System.out.println(libro.toString());
                 System.out.println("===== LIBRO REGISTRADO CON EXITO =====");
             }
         } catch (Exception e) {
